@@ -12,9 +12,14 @@ export const getPosts = async () => {
   }
 };
 
-export const getPost = async () => {
+export const getPost = async (title: string) => {
   try {
-    return [];
+    const fetchedPost = await prisma.post.findFirst({
+      where: {
+        title: title,
+      },
+    });
+    return fetchedPost;
   } catch (error) {
     console.error("Failed to fetch chat sessions", error);
   }

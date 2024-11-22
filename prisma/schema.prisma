@@ -17,7 +17,7 @@ datasource db {
 
 model Post {
   id        Int      @id @default(autoincrement())
-  title     String
+  title     String   @unique // Adding the @unique attribute here
   content   String
   createdAt DateTime @default(now())
 }
