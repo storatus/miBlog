@@ -6,6 +6,7 @@ import "@mdxeditor/editor/style.css";
 import dynamic from "next/dynamic";
 import classNames from "classnames";
 import { createPost } from "@/app/actions/blog";
+import { createSlug } from "@/app/utils/general";
 
 interface MessageForm {
   message: string;
@@ -35,6 +36,7 @@ const BlogForm = () => {
       const createdPost = await createPost({
         content: messageForm.message,
         title: messageForm.title,
+        slug: createSlug(messageForm.title),
       });
 
       console.log(createdPost, "createdPost");

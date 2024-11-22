@@ -28,14 +28,16 @@ export const getPost = async (title: string) => {
 interface CreatePost {
   title: string;
   content: string;
+  slug: string;
 }
 
-export const createPost = async ({ content, title }: CreatePost) => {
+export const createPost = async ({ content, title, slug }: CreatePost) => {
   try {
     const fetchedCreatePost = await prisma.post.create({
       data: {
         content: content,
         title: title,
+        slug,
       },
     });
 
