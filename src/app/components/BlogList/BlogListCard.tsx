@@ -13,7 +13,7 @@ export default function BlogListCard({
   handleDeletePost,
   ...post
 }: BlogListCardProps) {
-  const { content, title } = post;
+  const { content, title, slug } = post;
 
   const [isOptions, setIsOptions] = useState(false);
 
@@ -60,7 +60,7 @@ export default function BlogListCard({
           </div>
           <div className="h-12 flex items-center justify-between px-2">
             <Link
-              href={`/blog/${title}`}
+              href={`/blog/${slug}`}
               className=" flex items-center font-semibold text-yellow-500 transition-colors duration-200 hover:text-yellow-600"
             >
               Ver mas

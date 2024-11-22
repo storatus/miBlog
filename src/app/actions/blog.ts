@@ -12,11 +12,11 @@ export const getPosts = async () => {
   }
 };
 
-export const getPost = async (title: string) => {
+export const getPost = async (slug: string) => {
   try {
     const fetchedPost = await prisma.post.findFirst({
       where: {
-        title: title,
+        slug: slug,
       },
     });
     return fetchedPost;
