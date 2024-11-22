@@ -1,6 +1,6 @@
 "use client";
 import { ArrowRightIcon } from "lucide-react";
-// import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Post } from "@prisma/client";
@@ -19,18 +19,16 @@ export default function BlogListCard({
 
   return (
     <div className="h-full p-1">
-      <div className=" w-full max-w-xl bg-white shadow-md hover:shadow-lg break-words rounded-2xl   transition-transform duration-300 h-full">
-        <div className="overflow-hidden rounded-t-2xl">
-          {/* <Image
-            width={500}
-            height={500}
-            layout="responsive"
-            quality={80}
+      <div className=" w-full max-w-xl bg-white shadow-md hover:shadow-lg break-words rounded-2xl   transition-transform duration-300 min-h-full">
+        <div className="overflow-hidden rounded-t-2xl h-32">
+          <Image
+            width={600}
+            height={600}
             priority
-            src={imageUrl}
+            src={"https://picsum.photos/400/400"}
             alt={title}
-            className="w-full object-cover"
-          /> */}
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="p-2 flex flex-col h-full">
           <div>
