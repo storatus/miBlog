@@ -21,7 +21,7 @@ export default async function BlogLayout({
           <Nav />
         </Suspense>
       </div>
-      <main className="max-w-6xl container mx-auto flex flex-1  mt-20">
+      <main className="max-w-6xl container mx-auto flex-1 mt-20 flex">
         {children}
       </main>
       <div style={{ minHeight: "5%" }}>
