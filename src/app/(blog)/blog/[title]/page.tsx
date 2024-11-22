@@ -12,11 +12,13 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { getPost } from "@/app/actions/blog";
 import { Post } from "@prisma/client";
 
-const PostPage = async ({ title }: { title: string }) => {
+const PostPage = async ({
+  params: { title },
+}: {
+  params: { title: string };
+}) => {
   const { content } = (await getPost(title)) as Post;
   const mdxSource = (await serialize(content)) as MDXRemoteSerializeResult;
-
-  console.log(mdxSource, "mdxSource");
 
   return (
     <main>
