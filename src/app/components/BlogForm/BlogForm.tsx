@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import "@mdxeditor/editor/style.css";
 import dynamic from "next/dynamic";
 import classNames from "classnames";
+import { createPost } from "@/app/actions/blog";
 
 interface MessageForm {
   message: string;
@@ -21,11 +22,29 @@ const BlogForm = () => {
     message: "",
     title: "",
   });
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState("");
   const [error, setError] = useState(false);
 
-  const handleSubmitButton = () => {
-    console.log(messageForm);
+  const handleSubmitButton = async () => {
+    if (messageForm.message === "" || messageForm.title === "") {
+      setError(true);
+      return;
+    }
+    setLoading("createPost");
+    try {
+      const createdPost = await createPost({
+        content: messageForm.message,
+        title: messageForm.title,
+      });
+
+      console.log(createdPost, "createdPost");
+
+      setLoading("");
+      setMessageForm({ message: "", title: "" });
+    } catch (error) {
+      setLoading("");
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -40,13 +59,13 @@ const BlogForm = () => {
 
   return (
     <div className="h-full  p-4 shadow-2xl">
-      {loading && (
+      {loading === "createPost" && (
         <div className="absolute z-10 flex h-full w-full items-center justify-center bg-slate-500 bg-opacity-40">
           <span>Loading</span>
         </div>
       )}
       <div className="flex flex-1 flex-col ">
-        <div className="w-5/6  ">
+        <div className="w-5/6">
           <span className="text-2xl font-bold">{"Escribe tu mensaje"}</span>
         </div>
         <input
@@ -60,8 +79,11 @@ const BlogForm = () => {
           })}
           placeholder={"Escribi tu titulo"}
         />
-        <div>
-          <EditorComp markdown={messageForm.message} />
+        <div className="mt-12">
+          <EditorComp
+            onChange={(e) => handleInputChange("message", e)}
+            markdown={messageForm.message}
+          />
         </div>
 
         <div className="mt-12 flex justify-end">
