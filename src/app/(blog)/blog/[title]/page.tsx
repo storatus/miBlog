@@ -12,7 +12,7 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { getPost } from "@/app/actions/blog";
 import { Post } from "@prisma/client";
 
-type Params = Promise<{ title: string }>;
+type Params = Promise<{ title: string; slug: string }>;
 
 const PostPage = async (props: { params: Params }) => {
   const params = await props.params;
