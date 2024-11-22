@@ -1,5 +1,3 @@
-// import { getPostMetadata } from "@/lib/getPostMetadata";
-
 import { getPosts } from "@/app/actions/blog";
 import BlogList from "@/app/components/BlogList/BlogList";
 import Link from "next/link";

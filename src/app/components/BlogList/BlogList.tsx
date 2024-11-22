@@ -2,17 +2,10 @@
 import React, { useState } from "react";
 
 import BlogListCard from "./BlogListCard";
-
-export type PostMetadata = {
-  title: string;
-  date: string;
-  imageUrl: string;
-  bio: string;
-  slug: string;
-};
+import { Post } from "@prisma/client";
 
 type BlogListProps = {
-  posts?: PostMetadata[];
+  posts?: Post[];
 };
 
 export default function BlogList({ posts }: BlogListProps) {
@@ -21,21 +14,16 @@ export default function BlogList({ posts }: BlogListProps) {
   return (
     <>
       <section>
-        <div className=" mx-auto px-6 lg:px-8">
-          <div className="flex flex-row flex-wrap py-24">
-            {posts
-              ?.filter((val) =>
-                val.title.toLowerCase().includes(searchValue.toLowerCase())
-              )
-              .map((post) => (
-                <div
-                  key={post.slug}
-                  className="mx-auto flex w-3/4 justify-center"
-                >
-                  <BlogListCard {...post} />
-                </div>
-              ))}
-          </div>
+        <div className="flex flex-row flex-wrap">
+          {posts
+            ?.filter((val) =>
+              val.title.toLowerCase().includes(searchValue.toLowerCase())
+            )
+            .map((post) => (
+              <div key={post.title} className="w-1/4 min-h-60">
+                <BlogListCard {...post} />
+              </div>
+            ))}
         </div>
       </section>
     </>

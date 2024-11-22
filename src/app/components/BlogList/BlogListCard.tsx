@@ -1,16 +1,16 @@
 import { ArrowRightIcon } from "lucide-react";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { PostMetadata } from "./BlogList";
+import { Post } from "@prisma/client";
 
-export default function BlogListCard({ ...post }: PostMetadata) {
-  const { imageUrl, date, title, bio, slug } = post;
+export default function BlogListCard({ ...post }: Post) {
+  const { content, title } = post;
   return (
-    <div className=" rounded-2xl bg-white shadow-md transition-transform duration-300  hover:scale-105 hover:shadow-lg">
-      <div className="group w-full max-w-xl ">
+    <div className="h-full p-1">
+      <div className=" w-full max-w-xl bg-white shadow-md hover:scale-105 hover:shadow-lg break-words rounded-2xl   transition-transform duration-300 h-full">
         <div className="overflow-hidden rounded-t-2xl">
-          <Image
+          {/* <Image
             width={500}
             height={500}
             layout="responsive"
@@ -19,16 +19,16 @@ export default function BlogListCard({ ...post }: PostMetadata) {
             src={imageUrl}
             alt={title}
             className=" w-full object-cover"
-          />
+          /> */}
         </div>
         <div className="p-6">
-          <div className="my-4 flex text-gray-400">
+          {/* <div className="my-4 flex text-gray-400">
             <h5 className="text-sm font-medium">{date}</h5>
-          </div>
-          <h3 className="mb-4 text-2xl font-bold text-gray-800">{title}</h3>
-          <p className="mb-6 line-clamp-3 text-gray-600">{bio}</p>
+          </div> */}
+          <h3 className="mb-4 text-2xl font-bold text-gray-80">{title}</h3>
+          <p className="mb-6 line-clamp-3 text-gray-600">{content}</p>
           <Link
-            href={`/blog/${slug}`}
+            href={`/blog/${title}`}
             className="mt-4 flex items-center font-semibold text-yellow-500 transition-colors duration-200 hover:text-yellow-600"
           >
             Learn more
