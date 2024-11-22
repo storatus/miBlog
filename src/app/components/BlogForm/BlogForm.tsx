@@ -1,12 +1,20 @@
+/* eslint-disable react/display-name */
 "use client";
 import React, { useEffect, useState } from "react";
 
+import "@mdxeditor/editor/style.css";
+import dynamic from "next/dynamic";
 import classNames from "classnames";
 
 interface MessageForm {
   message: string;
   title: string;
 }
+
+const EditorComp = dynamic(
+  () => import("./../InitializedMDXEditor/InitializedMDXEditor"),
+  { ssr: false }
+);
 
 const BlogForm = () => {
   const [messageForm, setMessageForm] = useState<MessageForm>({
@@ -52,18 +60,10 @@ const BlogForm = () => {
           })}
           placeholder={"Escribi tu titulo"}
         />
-        <textarea
-          onChange={(e) => handleInputChange("message", e.target.value)}
-          value={messageForm.message}
-          id="message"
-          rows={5}
-          className={classNames({
-            "mt-6  rounded-lg border border-gray-500  p-2   focus:ring-offset-2 focus:outline-none":
-              true,
-            "border-red-500": error,
-          })}
-          placeholder={"Escribi tu mensaje"}
-        />
+        <div>
+          <EditorComp markdown={messageForm.message} />
+        </div>
+
         <div className="mt-12 flex justify-end">
           <button
             onClick={handleSubmitButton}

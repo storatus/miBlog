@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mdxeditor/editor": "^3.19.2",
     "autoprefixer": "^10.4.20",
     "classnames": "^2.5.1",
     "gray-matter": "^4.0.3",
