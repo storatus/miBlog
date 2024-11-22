@@ -14,9 +14,9 @@ export const links: Links = {
     href: "/",
     label: "Home",
   },
-  blog: {
-    id: "blog",
-    href: "/blog",
-    label: "Blog",
+  crearBlog: {
+    id: "crearBlog",
+    href: "/crearBlog",
+    label: "Crear Blog",
   },
 };

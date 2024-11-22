@@ -27,7 +27,7 @@ export default function NavBar() {
   return (
     <>
       <div className={getHeaderClasses(scrolled)}>
-        <header className="max-w-8xl container mx-auto flex min-h-20 items-center justify-between">
+        <header className="max-w-6xl container mx-auto flex min-h-20 items-center justify-between bg-black px-3">
           <div
             className={classNames({
               "flex flex-1 ": true,
