@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { MDXRemote } from "next-mdx-remote";
 import React from "react";
