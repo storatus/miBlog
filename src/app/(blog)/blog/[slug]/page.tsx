@@ -31,7 +31,8 @@ const getPostContent = async (slug: string) => {
   };
 };
 
-const PostPage = async ({ params: { slug } }: { params: { slug: string } }) => {
+const PostPage = async () => {
+  const slug = "";
   const { content, data } = await getPostContent(slug);
   const mdxSource = (await serialize(content)) as MDXRemoteSerializeResult;
 
