@@ -9,10 +9,6 @@ import BlogWrapper from "./blogWrapper";
 import CustomMdx from "@/app/components/CustomMdx/CustomMdx";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
-type PostPageProps = {
-  slug: string;
-};
-
 const getPostContent = async (slug: string) => {
   const folder = path.join(process.cwd(), "posts");
 
@@ -34,6 +30,10 @@ const getPostContent = async (slug: string) => {
     data,
   };
 };
+
+export interface PostPageProps {
+  slug: string;
+}
 
 export default async function PostPage({ slug }: PostPageProps) {
   const { content, data } = await getPostContent(slug);
