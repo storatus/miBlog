@@ -42,12 +42,12 @@ export default function BlogListCard({
             </div>
 
             {isOptions && (
-              <div
-                onClick={() => handleDeletePost(title)}
-                className="flex items-center justify-end  bg-white w-auto py-4"
-              >
-                <div className=" rounded border-red-400 h-8 w-20 border-2 justify-center items-center flex">
-                  <span className="text-red-400">Borrar</span>
+              <div className="flex items-center justify-end  bg-white w-auto py-4">
+                <div
+                  onClick={() => handleDeletePost(title)}
+                  className=" rounded border-red-400 h-8 w-20 border-2 justify-center items-center flex cursor-pointer hover:bg-red-400 hover:text-white text-red-400"
+                >
+                  <span>Borrar</span>
                 </div>
               </div>
             )}

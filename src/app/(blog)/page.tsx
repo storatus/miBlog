@@ -7,7 +7,9 @@ const Blog = async () => {
   return (
     <>
       <div className="flex-1 mt-20">
-        <h2 className="mt-16 text-center text-4xl font-bold ">Nuestro Blog</h2>
+        <h2 className="mt-16 text-center text-4xl font-bold text-white">
+          Nuestro Blog
+        </h2>
         <div className="mt-12">
           <Link href={"/crearBlog"}>Crear Blog</Link>
         </div>
