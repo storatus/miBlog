@@ -14,7 +14,9 @@ const Blog = async () => {
           <Link href={"/crearBlog"}>Crear Blog</Link>
         </div>
 
-        <BlogList posts={posts} />
+        <div className="p-4">
+          <BlogList posts={posts} />
+        </div>
       </div>
     </>
   );
