@@ -70,6 +70,13 @@ const BlogForm = () => {
         <div className="w-5/6">
           <span className="text-2xl font-bold">{"Escribe tu mensaje"}</span>
         </div>
+        <div className="mt-6 h-44 w-full flex flex-row justify-center ">
+          <div className="w-1/3 h-full  flex justify-center items-center border-2 rounded cursor-pointer">
+            <div>
+              <span className="font-semibold">Imagen +</span>
+            </div>
+          </div>
+        </div>
         <input
           onChange={(e) => handleInputChange("title", e.target.value)}
           value={messageForm.title}
