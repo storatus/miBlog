@@ -6,13 +6,11 @@ import { serialize } from "next-mdx-remote/serialize";
 import React from "react";
 
 import BlogWrapper from "./blogWrapper";
-import { getPosts } from "@/app/actions/blog";
-import { PostMetadata } from "@/app/components/BlogList/BlogList";
 import CustomMdx from "@/app/components/CustomMdx/CustomMdx";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
-type RecipePageProps = {
-  params: { slug: string };
+type PostPageProps = {
+  slug: string;
 };
 
 const getPostContent = async (slug: string) => {
@@ -37,13 +35,7 @@ const getPostContent = async (slug: string) => {
   };
 };
 
-export const generateStaticParams = async () => {
-  const posts = await getPosts();
-  return posts?.map((post: PostMetadata) => ({ slug: post.slug }));
-};
-
-export default async function PostPage({ params }: RecipePageProps) {
-  const slug = params.slug;
+export default async function PostPage({ slug }: PostPageProps) {
   const { content, data } = await getPostContent(slug);
   const mdxSource = (await serialize(content)) as MDXRemoteSerializeResult;
 
