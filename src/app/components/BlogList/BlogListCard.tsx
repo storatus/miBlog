@@ -5,7 +5,14 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Post } from "@prisma/client";
 
-export default function BlogListCard({ ...post }: Post) {
+interface BlogListCardProps extends Post {
+  handleDeletePost: (title: string) => Promise<void>;
+}
+
+export default function BlogListCard({
+  handleDeletePost,
+  ...post
+}: BlogListCardProps) {
   const { content, title } = post;
 
   const [isOptions, setIsOptions] = useState(false);
@@ -37,7 +44,10 @@ export default function BlogListCard({ ...post }: Post) {
             </div>
 
             {isOptions && (
-              <div className="flex items-center justify-end  bg-white w-auto py-4">
+              <div
+                onClick={() => handleDeletePost(title)}
+                className="flex items-center justify-end  bg-white w-auto py-4"
+              >
                 <div className=" rounded border-red-400 h-8 w-20 border-2 justify-center items-center flex">
                   <span className="text-red-400">Borrar</span>
                 </div>

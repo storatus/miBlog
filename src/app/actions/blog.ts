@@ -8,7 +8,7 @@ export const getPosts = async () => {
     const fetchedPosts = await prisma.post.findMany();
     return fetchedPosts;
   } catch (error) {
-    console.error("Failed to fetch chat sessions", error);
+    console.error("Failed to get Posts", error);
   }
 };
 
@@ -21,7 +21,7 @@ export const getPost = async (title: string) => {
     });
     return fetchedPost;
   } catch (error) {
-    console.error("Failed to fetch chat sessions", error);
+    console.error("Failed to get Post", error);
   }
 };
 
@@ -41,6 +41,18 @@ export const createPost = async ({ content, title }: CreatePost) => {
 
     return fetchedCreatePost;
   } catch (error) {
-    console.error("Failed to fetch chat sessions", error);
+    console.error("Failed to create Post", error);
+  }
+};
+
+export const deletePost = async (title: string) => {
+  try {
+    await prisma.post.delete({
+      where: {
+        title: title,
+      },
+    });
+  } catch (error) {
+    console.error("Failed to delete Blog", error);
   }
 };

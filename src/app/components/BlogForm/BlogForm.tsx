@@ -41,6 +41,8 @@ const BlogForm = () => {
 
       setLoading("");
       setMessageForm({ message: "", title: "" });
+      alert("Post creado con exito");
+      window.location.reload();
     } catch (error) {
       setLoading("");
       console.log(error);
@@ -58,13 +60,13 @@ const BlogForm = () => {
   };
 
   return (
-    <div className="h-full  p-4 shadow-2xl">
+    <div className="h-full  shadow-2xl relative ">
       {loading === "createPost" && (
-        <div className="absolute z-10 flex h-full w-full items-center justify-center bg-slate-500 bg-opacity-40">
+        <div className="absolute z-10 flex h-full w-full items-center justify-center bg-slate-500 bg-opacity-40 inset-0">
           <span>Loading</span>
         </div>
       )}
-      <div className="flex flex-1 flex-col ">
+      <div className="flex flex-1 flex-col p-2">
         <div className="w-5/6">
           <span className="text-2xl font-bold">{"Escribe tu mensaje"}</span>
         </div>
