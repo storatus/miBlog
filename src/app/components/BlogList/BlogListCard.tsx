@@ -36,7 +36,7 @@ export default function BlogListCard({
               onClick={() => {
                 setIsOptions(!isOptions);
               }}
-              className=" cursor-pointer mb-2 flex items-center text-gray-400 hover:text-gray-600"
+              className=" cursor-pointer mb-2 flex items-center text-green-400 hover:text-gray-600"
             >
               <span className="underline">Ajustar</span>
             </div>
