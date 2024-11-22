@@ -6,13 +6,8 @@ import { serialize } from "next-mdx-remote/serialize";
 import React from "react";
 
 import BlogWrapper from "./blogWrapper";
-import { getPosts } from "@/app/actions/blog";
-import { PostMetadata } from "@/app/components/BlogList/BlogList";
 import CustomMdx from "@/app/components/CustomMdx/CustomMdx";
-
-type RecipePageProps = {
-  params: { slug: string };
-};
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
 const getPostContent = async (slug: string) => {
   const folder = path.join(process.cwd(), "posts");
@@ -36,15 +31,10 @@ const getPostContent = async (slug: string) => {
   };
 };
 
-export const generateStaticParams = async () => {
-  const posts = await getPosts();
-  return posts?.map((post: PostMetadata) => ({ slug: post.slug }));
-};
-
-export default async function PostPage({ params }: RecipePageProps) {
-  const slug = params.slug;
+const PostPage = async () => {
+  const slug = "";
   const { content, data } = await getPostContent(slug);
-  const mdxSource = await serialize(content);
+  const mdxSource = (await serialize(content)) as MDXRemoteSerializeResult;
 
   const { title, bio, imageUrl } = data;
 
@@ -57,4 +47,6 @@ export default async function PostPage({ params }: RecipePageProps) {
       </section>
     </main>
   );
-}
+};
+
+export default PostPage;

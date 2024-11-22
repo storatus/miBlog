@@ -15,13 +15,15 @@ export default async function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex min-h-screen mx-auto flex-1 flex-col bg-gray-900">
+    <section className="flex min-h-screen mx-auto flex-1 flex-col bg-gray-900 relative">
       <div style={{ minHeight: "5%" }}>
         <Suspense fallback="...">
           <Nav />
         </Suspense>
       </div>
-      <main className="flex w-full flex-1 justify-center">{children}</main>
+      <main className="max-w-6xl container mx-auto flex-1 mt-20 flex">
+        {children}
+      </main>
       <div style={{ minHeight: "5%" }}>
         <Footer />
       </div>
