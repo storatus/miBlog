@@ -35,7 +35,7 @@ export interface PostPageProps {
   slug: string;
 }
 
-export default async function PostPage({ slug }: PostPageProps) {
+const PostPage = async ({ slug }: PostPageProps) => {
   const { content, data } = await getPostContent(slug);
   const mdxSource = (await serialize(content)) as MDXRemoteSerializeResult;
 
@@ -50,4 +50,6 @@ export default async function PostPage({ slug }: PostPageProps) {
       </section>
     </main>
   );
-}
+};
+
+export default PostPage;
