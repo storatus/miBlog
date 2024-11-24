@@ -22,3 +22,10 @@ model Post {
   createdAt DateTime @default(now())
   slug      String
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique // Adding the @unique attribute here
+  edad      String
+  createdAt DateTime @default(now())
+}
