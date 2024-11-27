@@ -1,39 +1,72 @@
+"use client";
 import { ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { PostMetadata } from "./BlogList";
+import React, { useState } from "react";
+import { Post } from "@prisma/client";
 
-export default function BlogListCard({ ...post }: PostMetadata) {
-  const { imageUrl, date, title, bio, slug } = post;
+interface BlogListCardProps extends Post {
+  handleDeletePost: (title: string) => Promise<void>;
+}
+
+export default function BlogListCard({
+  handleDeletePost,
+  ...post
+}: BlogListCardProps) {
+  const { content, title, slug } = post;
+
+  const [isOptions, setIsOptions] = useState(false);
+
   return (
-    <div className=" rounded-2xl bg-white shadow-md transition-transform duration-300  hover:scale-105 hover:shadow-lg">
-      <div className="group w-full max-w-xl ">
-        <div className="overflow-hidden rounded-t-2xl">
+    <div className="h-full p-1">
+      <div className=" w-full max-w-xl bg-white shadow-md hover:shadow-lg break-words rounded-2xl   transition-transform duration-300 min-h-full">
+        <div className="overflow-hidden rounded-t-2xl h-32">
           <Image
-            width={500}
-            height={500}
-            layout="responsive"
-            quality={80}
+            width={600}
+            height={600}
             priority
-            src={imageUrl}
+            src={"https://picsum.photos/400/400"}
             alt={title}
-            className=" w-full object-cover"
+            className="w-full h-full object-cover"
           />
         </div>
-        <div className="p-6">
-          <div className="my-4 flex text-gray-400">
-            <h5 className="text-sm font-medium">{date}</h5>
+        <div className="p-2 flex flex-col h-full">
+          <div>
+            <div
+              onClick={() => {
+                setIsOptions(!isOptions);
+              }}
+              className=" cursor-pointer mb-2 flex items-center text-blue-400 hover:text-gray-600"
+            >
+              <span className="underline">Ajustar</span>
+            </div>
+
+            {isOptions && (
+              <div className="flex items-center justify-end  bg-white w-auto py-4">
+                <div
+                  onClick={() => handleDeletePost(title)}
+                  className=" rounded border-red-400 h-8 w-20 border-2 justify-center items-center flex cursor-pointer hover:bg-red-400 hover:text-white text-red-400"
+                >
+                  <span>Borrar</span>
+                </div>
+              </div>
+            )}
           </div>
-          <h3 className="mb-4 text-2xl font-bold text-gray-800">{title}</h3>
-          <p className="mb-6 line-clamp-3 text-gray-600">{bio}</p>
-          <Link
-            href={`/blog/${slug}`}
-            className="mt-4 flex items-center font-semibold text-yellow-500 transition-colors duration-200 hover:text-yellow-600"
-          >
-            Learn more
-            <ArrowRightIcon className="ml-2 text-sm" />
-          </Link>
+          <div className="min-h-20">
+            <h3 className="text-2xl font-bold text-gray-80">{title}</h3>
+          </div>
+          <div className="flex-1 ">
+            <p className=" line-clamp-3 text-gray-600">{content}</p>
+          </div>
+          <div className="h-12 flex items-center justify-between px-2">
+            <Link
+              href={`/blog/${slug}`}
+              className=" flex items-center font-semibold text-yellow-500 transition-colors duration-200 hover:text-yellow-600"
+            >
+              Ver mas
+              <ArrowRightIcon className="ml-2 text-sm" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>

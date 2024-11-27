@@ -6,6 +6,7 @@ import "@mdxeditor/editor/style.css";
 import dynamic from "next/dynamic";
 import classNames from "classnames";
 import { createPost } from "@/app/actions/blog";
+import { createSlug } from "@/app/utils/general";
 
 interface MessageForm {
   message: string;
@@ -35,12 +36,15 @@ const BlogForm = () => {
       const createdPost = await createPost({
         content: messageForm.message,
         title: messageForm.title,
+        slug: createSlug(messageForm.title),
       });
 
       console.log(createdPost, "createdPost");
 
       setLoading("");
       setMessageForm({ message: "", title: "" });
+      alert("Post creado con exito");
+      window.location.reload();
     } catch (error) {
       setLoading("");
       console.log(error);
@@ -58,15 +62,22 @@ const BlogForm = () => {
   };
 
   return (
-    <div className="h-full  p-4 shadow-2xl">
+    <div className="h-full  shadow-2xl relative ">
       {loading === "createPost" && (
-        <div className="absolute z-10 flex h-full w-full items-center justify-center bg-slate-500 bg-opacity-40">
+        <div className="absolute z-10 flex h-full w-full items-center justify-center bg-slate-500 bg-opacity-40 inset-0">
           <span>Loading</span>
         </div>
       )}
-      <div className="flex flex-1 flex-col ">
+      <div className="flex flex-1 flex-col p-2">
         <div className="w-5/6">
           <span className="text-2xl font-bold">{"Escribe tu mensaje"}</span>
+        </div>
+        <div className="mt-6 h-44 w-full flex flex-row justify-center ">
+          <div className="w-1/3 h-full  flex justify-center items-center border-2 rounded cursor-pointer">
+            <div>
+              <span className="font-semibold">Imagen +</span>
+            </div>
+          </div>
         </div>
         <input
           onChange={(e) => handleInputChange("title", e.target.value)}

@@ -19,4 +19,9 @@ export const links: Links = {
     href: "/crearBlog",
     label: "Crear Blog",
   },
+  test: {
+    id: "test",
+    href: "/test",
+    label: "Lindo Testeo",
+  },
 };
