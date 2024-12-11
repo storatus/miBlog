@@ -13,7 +13,7 @@ export default function BlogListCard({
   handleDeletePost,
   ...post
 }: BlogListCardProps) {
-  const { content, title, slug } = post;
+  const { content, title, slug, imageUrl } = post;
 
   const [isOptions, setIsOptions] = useState(false);
 
@@ -25,7 +25,7 @@ export default function BlogListCard({
             width={600}
             height={600}
             priority
-            src={"https://picsum.photos/400/400"}
+            src={imageUrl || "https://picsum.photos/400/400"}
             alt={title}
             className="w-full h-full object-cover"
           />

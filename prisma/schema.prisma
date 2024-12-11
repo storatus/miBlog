@@ -20,6 +20,7 @@ model Post {
   title     String   @unique // Adding the @unique attribute here
   content   String
   createdAt DateTime @default(now())
+  imageUrl  String?
   slug      String
 }
 

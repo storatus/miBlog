@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/display-name */
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "@mdxeditor/editor/style.css";
 import dynamic from "next/dynamic";
 import classNames from "classnames";
 import { createPost } from "@/app/actions/blog";
 import { createSlug } from "@/app/utils/general";
+import FileUpload from "../FileUpload/FileUpload";
+import { PutBlobResult } from "@vercel/blob";
 
 interface MessageForm {
   message: string;
@@ -23,8 +26,11 @@ const BlogForm = () => {
     message: "",
     title: "",
   });
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState<string>("");
   const [error, setError] = useState(false);
+
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>("");
+  const imagenRef = useRef<HTMLInputElement>(null);
 
   const handleSubmitButton = async () => {
     if (messageForm.message === "" || messageForm.title === "") {
@@ -33,10 +39,13 @@ const BlogForm = () => {
     }
     setLoading("createPost");
     try {
+      const imagenSubidaUrl = (await subirImagen()) as string;
+
       const createdPost = await createPost({
         content: messageForm.message,
         title: messageForm.title,
         slug: createSlug(messageForm.title),
+        imageUrl: imagenSubidaUrl,
       });
 
       console.log(createdPost, "createdPost");
@@ -61,6 +70,38 @@ const BlogForm = () => {
     setMessageForm({ ...messageForm, [name]: value });
   };
 
+  const ponerImagen = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files as FileList;
+
+    if (files.length > 0) {
+      const mediaUrl = URL.createObjectURL(files[0]);
+      setImagePreviewUrl(mediaUrl);
+    }
+  };
+
+  const subirImagen = async () => {
+    try {
+      if (!imagenRef.current?.files) {
+        throw new Error("No file selected");
+      }
+
+      const file = imagenRef.current.files[0];
+
+      console.log(file);
+
+      const response = await fetch(`/api/upload?filename=${file.name}`, {
+        method: "POST",
+        body: file,
+      });
+
+      const newBlob = (await response.json()) as PutBlobResult;
+      const newUserImageUrl = newBlob.url;
+      return newUserImageUrl;
+    } catch (error) {
+      console.log("Failed to upload User image", error);
+    }
+  };
+
   return (
     <div className="h-full  shadow-2xl relative ">
       {loading === "createPost" && (
@@ -74,11 +115,22 @@ const BlogForm = () => {
         </div>
         <div className="mt-6 h-44 w-full flex flex-row justify-center ">
           <div className="w-1/3 h-full  flex justify-center items-center border-2 rounded cursor-pointer">
-            <div>
-              <span className="font-semibold">Imagen +</span>
-            </div>
+            <FileUpload
+              imagePreviewUrl={imagePreviewUrl}
+              imagenRef={imagenRef}
+              ponerImagen={ponerImagen}
+            />
           </div>
         </div>
+
+        {imagePreviewUrl && (
+          <div
+            onClick={() => setImagePreviewUrl("")}
+            className="flex justify-center items-center text-red-400 cursor-pointer mt-4 font-semibold"
+          >
+            <span>Borrar imagen</span>
+          </div>
+        )}
         <input
           onChange={(e) => handleInputChange("title", e.target.value)}
           value={messageForm.title}
