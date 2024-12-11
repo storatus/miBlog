@@ -87,8 +87,6 @@ const BlogForm = () => {
 
       const file = imagenRef.current.files[0];
 
-      console.log(file);
-
       const response = await fetch(`/api/upload?filename=${file.name}`, {
         method: "POST",
         body: file,

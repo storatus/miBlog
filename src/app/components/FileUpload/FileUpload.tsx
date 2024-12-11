@@ -31,7 +31,7 @@ const FileUpload = ({
             width={100}
             height={100}
             alt="imagen"
-            className="h-44 w-44 object-cover absolute "
+            className="h-44 w-44 object-cover absolute"
           />
         )}
 
