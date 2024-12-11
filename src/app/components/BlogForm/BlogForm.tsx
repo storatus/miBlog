@@ -41,14 +41,12 @@ const BlogForm = () => {
     try {
       const imagenSubidaUrl = (await subirImagen()) as string;
 
-      const createdPost = await createPost({
+      await createPost({
         content: messageForm.message,
         title: messageForm.title,
         slug: createSlug(messageForm.title),
         imageUrl: imagenSubidaUrl,
       });
-
-      console.log(createdPost, "createdPost");
 
       setLoading("");
       setMessageForm({ message: "", title: "" });
